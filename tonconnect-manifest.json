@@ -1,0 +1,7 @@
+{
+    "url": "https://your-website.com", // Замените на URL вашего сайта
+    "name": "Brum Mining",
+    "iconUrl": "https://your-website.com/icon.png", // Замените на URL иконки
+    "termsOfUseUrl": "https://your-website.com/terms", // Замените на URL условий использования
+    "privacyPolicyUrl": "https://your-website.com/privacy" // Замените на URL политики конфиденциальности
+  }

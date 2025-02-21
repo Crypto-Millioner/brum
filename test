@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Улучшения</title>
+  <link rel="stylesheet" href="boost.css">
+  <link rel="stylesheet" href="shop.css"> <!-- Подключаем стили для бустов -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <!-- Верхняя панель -->
+  <div class="top-panel">
+    <div class="balance">
+      <img src="b.png" alt="BR Icon" class="br-icon">
+      <span id="boost-balance">0.00 BR</span>
+    </div>
+    <div class="income">
+      <span class="income-label">Текущий доход</span>
+      <span class="income-value" id="income-value">150 BL</span>
+    </div>
+  </div>
+
+  <!-- Улучшение дохода -->
+  <div class="upgrade-container">
+    <div class="upgrade">
+      <div class="upgrade-header">
+        <h2>Ускорение майнинга</h2>
+        <span class="upgrade-level">Уровень <span id="current-level">1</span></span>
+      </div>
+      
+      <div class="upgrade-body">
+        <div class="upgrade-stats">
+          <div class="stat">
+            <span class="stat-label">Стоимость</span>
+            <span class="stat-value" id="upgrade-cost">5000 BR</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Новый доход</span>
+            <span class="stat-value" id="upgrade-income">250 BL</span>
+          </div>
+        </div>
+        
+        <button id="buy-income-button" class="upgrade-button">Купить улучшение</button>
+        <div class="upgrade-progress" id="upgrade-progress">150 ⮕ 250 BL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Улучшение времени -->
+  <div class="upgrade-container">
+    <div class="upgrade">
+      <div class="upgrade-header">
+        <h2>Сокращение времени</h2>
+        <span class="upgrade-level">Уровень <span id="time-level">1</span></span>
+      </div>
+      
+      <div class="upgrade-body">
+        <div class="upgrade-stats">
+          <div class="stat">
+            <span class="stat-label">Стоимость</span>
+            <span class="stat-value" id="time-cost">20000 BR</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Новое время</span>
+            <span class="stat-value" id="time-reduction">6 часов</span>
+          </div>
+        </div>
+        
+        <button id="buy-time-button" class="upgrade-button">Купить улучшение</button>
+        <div class="upgrade-progress" id="time-progress">8 ⮕ 6 часов</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Секция бустов -->
+  <div class="shop-container">
+    <h2 class="shop-title">Магазин бустов</h2>
+    <div class="boosts-grid">
+      <!-- Буст 1 -->
+      <div class="boost-card">
+        <img src="boost1.png" alt="Booster x2" class="boost-image">
+        <div class="boost-info">
+          <h3>Farming Booster x2</h3>
+          <p>Duration: 1 day</p>
+          <div class="price">
+            <img src="ton.png" alt="TON" class="ton-icon">
+            <span>0.30 TON</span>
+          </div>
+          <button class="buy-button" data-price="0.30">Купить</button>
+        </div>
+      </div>
+
+      <!-- Буст 2 -->
+      <div class="boost-card">
+        <img src="boost2.png" alt="Booster x3" class="boost-image">
+        <div class="boost-info">
+          <h3>Farming Booster x3</h3>
+          <p>Duration: 7 days</p>
+          <div class="price">
+            <img src="ton.png" alt="TON" class="ton-icon">
+            <span>1.00 TON</span>
+          </div>
+          <button class="buy-button" data-price="1.00">Купить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Нижняя панель -->
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fas fa-home"></i>
+      <span>Главная</span>
+    </a>
+    <a href="boost.html" class="nav-item active">
+      <i class="fas fa-rocket"></i>
+      <span>Улучшения</span>
+    </a>
+    <a href="tasks.html" class="nav-item">
+      <i class="fas fa-tasks"></i>
+      <span>Задания</span>
+    </a>
+    <a href="wallet.html" class="nav-item">
+      <i class="fas fa-wallet"></i>
+      <span>Кошелек</span>
+    </a>
+  </div>
+
+  <script src="boost.js"></script>
+  <script src="shop.js"></script>
+  <script src="https://unpkg.com/@tonconnect/sdk/dist/tonconnect-sdk.min.js"></script>
+<script src="https://unpkg.com/@ton/ton/dist/ton.min.js"></script>
+</body>
+</html>
+
+
+ <!-- Кнопка подключения кошелька -->
+  <div id="wallet-connect"></div>
+
+
+ <script src="shop.js" type="module"></script>
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Обработчик покупки бустов
+    document.querySelectorAll('.buy-button').forEach(button => {
+      button.addEventListener('click', function () {
+        const price = this.getAttribute('data-price');
+        const boostName = this.closest('.boost-card').querySelector('h3').textContent;
+  
+        if (confirm(`Купить ${boostName} за ${price} TON?`)) {
+          // Логика покупки буста
+          alert('Покупка успешно завершена!');
+          applyBoost(boostName); // Применяем буст
+        }
+      });
+    });
+  
+    // Функция для применения буста
+    function applyBoost(boostName) {
+      let boostMultiplier = 1;
+      let boostDuration = 0;
+  
+      if (boostName.includes('x2')) {
+        boostMultiplier = 2;
+        boostDuration = 1; // 1 день
+      } else if (boostName.includes('x3')) {
+        boostMultiplier = 3;
+        boostDuration = 7; // 7 дней
+      }
+  
+      // Сохраняем буст в localStorage
+      localStorage.setItem('activeBoost', JSON.stringify({
+        multiplier: boostMultiplier,
+        duration: boostDuration,
+        expires: Date.now() + boostDuration * 24 * 60 * 60 * 1000 // Время окончания буста
+      }));
+  
+      // Обновляем интерфейс (если нужно)
+      updateBoostUI();
+    }
+  
+    // Функция для обновления интерфейса с учетом активного буста
+    function updateBoostUI() {
+      const activeBoost = JSON.parse(localStorage.getItem('activeBoost'));
+      if (activeBoost) {
+        console.log(`Активный буст: x${activeBoost.multiplier} на ${activeBoost.duration} дней`);
+      }
+    }
+  
+    // Проверяем активный буст при загрузке страницы
+    updateBoostUI();
+  });
+
+  import { TonConnect } from '@tonconnect/sdk';
+import { Address, beginCell, toNano } from '@ton/ton';
+
+// Инициализация TonConnect
+const connector = new TonConnect({
+  manifestUrl: 'https://your-website.com/tonconnect-manifest.json', // Замените на URL вашего манифеста
+});
+
+// Элементы DOM
+const connectWalletButton = document.createElement('button');
+connectWalletButton.textContent = 'Подключить кошелек';
+document.body.prepend(connectWalletButton);
+
+// Подключение кошелька
+connectWalletButton.addEventListener('click', async () => {
+  try {
+    await connector.connect();
+    alert('Кошелек успешно подключен!');
+  } catch (error) {
+    alert('Ошибка подключения кошелька: ' + error.message);
+  }
+});
+
+// Обработчик покупки бустов
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', async function () {
+      const price = this.getAttribute('data-price');
+      const boostName = this.closest('.boost-card').querySelector('h3').textContent;
+
+      if (!connector.connected) {
+        alert('Пожалуйста, подключите кошелек!');
+        return;
+      }
+
+      if (confirm(`Купить ${boostName} за ${price} TON?`)) {
+        try {
+          // Отправляем транзакцию
+          const transaction = {
+            validUntil: Math.floor(Date.now() / 1000) + 300, // 5 минут
+            messages: [
+              {
+                address: 'EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c', // Замените на адрес вашего контракта
+                amount: toNano(price).toString(), // Сумма в нано-TON
+                payload: beginCell()
+                  .storeUint(0, 32) // Опкод для покупки буста
+                  .storeStringTail(boostName) // Название буста
+                  .endCell()
+                  .toBoc()
+                  .toString('base64'), // Данные для контракта
+              },
+            ],
+          };
+
+          const result = await connector.sendTransaction(transaction);
+          if (result.boc) {
+            alert('Покупка успешно завершена!');
+            applyBoost(boostName); // Применяем буст
+          } else {
+            alert('Ошибка при отправке транзакции.');
+          }
+        } catch (error) {
+          alert('Ошибка: ' + error.message);
+        }
+      }
+    });
+  });
+});
+
+// Функция для применения буста
+function applyBoost(boostName) {
+  let boostMultiplier = 1;
+  let boostDuration = 0;
+
+  if (boostName.includes('x2')) {
+    boostMultiplier = 2;
+    boostDuration = 1; // 1 день
+  } else if (boostName.includes('x3')) {
+    boostMultiplier = 3;
+    boostDuration = 7; // 7 дней
+  }
+
+  // Сохраняем буст в localStorage
+  localStorage.setItem('activeBoost', JSON.stringify({
+    multiplier: boostMultiplier,
+    duration: boostDuration,
+    expires: Date.now() + boostDuration * 24 * 60 * 60 * 1000 // Время окончания буста
+  }));
+
+  // Обновляем интерфейс (если нужно)
+  updateBoostUI();
+}
+
+// Функция для обновления интерфейса с учетом активного буста
+function updateBoostUI() {
+  const activeBoost = JSON.parse(localStorage.getItem('activeBoost'));
+  if (activeBoost) {
+    console.log(`Активный буст: x${activeBoost.multiplier} на ${activeBoost.duration} дней`);
+  }
+}
+
+// Проверяем активный буст при загрузке страницы
+updateBoostUI();
+
+async function checkPayment(walletAddress, expectedAmount) {
+    const response = await fetch('http://localhost:3100/check-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ walletAddress, expectedAmount })
+    });
+    return response.json();
+  }
+  
+  document.querySelectorAll('.buy-button').forEach(button => {
+    button.addEventListener('click', async function() {
+      const price = this.dataset.price;
+      const boostName = this.closest('.boost-card').querySelector('h3').textContent;
+  
+      if (!connector.connected) {
+        alert('Пожалуйста, подключите кошелек!');
+        return;
+      }
+  
+      const walletAddress = await connector.getWallet().getAddress();
+      const paymentResult = await checkPayment(walletAddress, toNano(price).toString());
+  
+      if (paymentResult.success) {
+        alert('Платеж подтвержден! Буст активирован.');
+        applyBoost(boostName);
+      } else {
+        alert('Платеж не найден. Попробуйте еще раз.');
+      }
+    });
+  });

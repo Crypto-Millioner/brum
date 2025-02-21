@@ -1,0 +1,151 @@
+/* Общие стили */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #333;
+  padding-bottom: 80px;
+}
+
+/* Верхняя панель */
+.top-panel {
+  padding: 20px;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.balance, .income {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.br-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.income-label {
+  font-weight: bold;
+}
+
+.income-value {
+  color: #4CAF50;
+  font-size: 20px;
+}
+
+/* Контейнер улучшения */
+.upgrade-container {
+  padding: 20px;
+}
+
+.upgrade {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.upgrade-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.upgrade-header h2 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.upgrade-level {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.upgrade-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  color: #666;
+  font-size: 14px;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.upgrade-button {
+  width: 100%;
+  padding: 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.upgrade-button:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.upgrade-button:hover:not(:disabled) {
+  transform: scale(1.02);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.upgrade-progress {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 16px;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Нижняя панель */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.nav-item i {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.nav-item.active {
+  color: #4CAF50;
+}

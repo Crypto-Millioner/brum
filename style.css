@@ -1,0 +1,103 @@
+/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    position: relative;
+    padding-bottom: 60px; /* Отступ для нижней панели */
+  }
+  
+  .container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Стили для баланса */
+  .balance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .br-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  /* Стили для логотипа */
+  .logo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    transition: transform 1s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .logo:active {
+    animation: bounce 0.3s ease;
+  }
+  
+  /* Стили для кнопки */
+  .start-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 28px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .start-button:disabled {
+    background-color: #9E9E9E;
+    cursor: not-allowed;
+  }
+  
+  .start-button:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+  
+  /* Нижняя панель */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .nav-item i {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .nav-item.active {
+    color: #4CAF50;
+  }
